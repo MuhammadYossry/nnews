@@ -1,5 +1,8 @@
+
+
 from __future__ import absolute_import
 # BROKER_URL = 'redis://localhost'
+from heroku import heroku
 import djcelery
 djcelery.setup_loader()
 
@@ -82,16 +85,17 @@ WSGI_APPLICATION = 'newsportal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase',
-        'USER': 'mydatabaseuser',
-        'PASSWORD': 'mypassword',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -167,8 +171,9 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 ##Heroku setup 
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+if heroku:
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
 
 
 #Honor the 'X-Forwarded-Proto' header for request.is_secure()
