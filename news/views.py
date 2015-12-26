@@ -17,17 +17,13 @@ def news(request):
 	allnews = []
 	allnews.append(nagarik_crawler())
 	allnews.append(onlinekhabar_crawler())
-	for news_dict in list(reversed(allnews)):
-		for news, url  in news_dict.items():
-			#Save all the scrape news in database
-			News.objects.create(title=news, url=url, source=source)
-		
 	return render(request, 'news/index.html', {'allnews':allnews, 'source': source})
 
 @api_view(['GET', 'POST'])
 def news_list(request):
     """
-    List all news
+    List all news in json format json api, pull from the databse
+    tasks.py will add the news into database
     """
     if request.method == 'GET':
         news = News.objects.all()
