@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% for news in allnews %}
+		{% for eachnews, link in news.items %}
+		
+			<li><a href="{{link}}">{{eachnews}}</a> {{source}}</li> 
+			
+		{% endfor %}
+	{% endfor %}
+{% endblock %}
