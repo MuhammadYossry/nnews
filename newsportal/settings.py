@@ -2,7 +2,6 @@
 
 from __future__ import absolute_import
 # BROKER_URL = 'redis://localhost'
-from heroku import heroku
 import djcelery
 djcelery.setup_loader()
 
@@ -168,12 +167,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 
-
-##Heroku setup 
-# Parse database configuration from $DATABASE_URL
-if heroku:
-    import dj_database_url
-    DATABASES['default'] =  dj_database_url.config()
 
 
 #Honor the 'X-Forwarded-Proto' header for request.is_secure()
